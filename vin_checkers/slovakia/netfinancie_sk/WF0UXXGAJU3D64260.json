@@ -1,0 +1,24 @@
+{
+    "WF0UXXGAJU3D64260": {
+        "car_info": {
+            "vozidlo_ecv": "IL231DF",
+            "vozidlo_ecv_isset": "y",
+            "vozidlo_vin": "WF0UXXGAJU3D64260",
+            "vozidlo_datum_prvej_evidencie": "2003-04-15",
+            "vozidlo_druh_paliva": "nafta",
+            "vozidlo_znacka": "FORD",
+            "vozidlo_druh": "osobny_automobil",
+            "vozidlo_model": "FUSION",
+            "vozidlo_typ_prevodovky": "manualna",
+            "vozidlo_pocet_stupnov_prevodovky": 5,
+            "vozidlo_objem_valcov": 1399,
+            "vozidlo_vykon_motora": 50,
+            "vozidlo_pocet_miest_na_sedenie": 5,
+            "vozidlo_celkova_hmotnost": 1640,
+            "vozidlo_id": "74ed84444ea63599ed52e24d633ed7e4",
+            "vozidlo_id_druh": "OA",
+            "vozidlo_pocet_dveri": 5
+        },
+        "car_data": null
+    }
+}
