@@ -34,21 +34,21 @@ def collect_car_info(json_text):
     return car_info
 
 
-def get_all_data(path):
-    res = {}
-    vin_code_list = get_vin(path)
+def get_all_data(vin: str):
+    json_text = get_car_info(vin)
+    car_info = collect_car_info(json_text)
+
+    if car_info:
+        json.dump(car_info, open(f"{cwd_path}/parsed_vins/{vin}.json", "w"), indent=4)
+        print(f'{vin} PARSED!')
+    else:
+        with open(f"{cwd_path}/incorrect_vins.txt", "a+") as f:
+            f.write(vin + "\n")
+        print(f'{vin} BAD VIN!')
+
+
+if __name__ == "__main__":
+    vin_code_list = get_vin(f"{cwd_path}/vin.txt")
 
     for vin in vin_code_list:
-        json_text = get_car_info(vin)
-        car_info = collect_car_info(json_text)
-        if car_info:
-            res[vin] = car_info
-            json.dump({vin: car_info}, open(f"{vin}.json", "w"), indent=4)
-        else:
-            with open(f"{cwd_path}/incorrect_vins.txt", "a+") as f:
-                f.write(vin + "\n")
-
-    return res
-
-
-print(get_all_data("vin.txt"))
+        get_all_data(vin)
