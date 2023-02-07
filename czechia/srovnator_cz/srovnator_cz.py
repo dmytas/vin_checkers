@@ -45,8 +45,7 @@ def get_all_data(vin: str):
     car_info = collect_car_info(json_text)
 
     if car_info:
-        with open(f"{cwd_path}/parsed_vins/{vin}.json", "w", encoding='utf-8') as f:
-            json.dump(car_info, f)
+        json.dump(car_info, open(f"{cwd_path}/parsed_vins/{vin}.json", "w"), indent=4)
         print(f'{vin} PARSED!')
     else:
         with open(f"{cwd_path}/incorrect_vins.txt", "a+") as f:
