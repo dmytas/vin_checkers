@@ -1,0 +1,20 @@
+headers = {"Accept": "application/json",
+           "Accept-Encoding": "gzip, deflate, br",
+           "Accept-Language": "uk,en-US;q=0.9,en;q=0.8",
+           "Connection": "keep-alive",
+           "Content-Type": "application/json",
+           "Host": "api.laqo.hr",
+           "Origin": "https://kupi.laqo.hr",
+           "Referer": "https://kupi.laqo.hr/",
+           "Sec-Fetch-Dest": "empty",
+           "Sec-Fetch-Mode": "cors",
+           "Sec-Fetch-Site": "same-site",
+           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 "
+                         "Safari/537.36",
+           "X-Application-Name": "laqo-webshop",
+           "X-Session-ID": "c0ef1904-74f2-49c7-be1c-58bc0793ae40",
+           "sec-ch-ua": '"Chromium";v="110", "Not A(Brand";v="24", "Google Chrome";v="110"',
+           "sec-ch-ua-mobile": "?0",
+           "sec-ch-ua-platform": '"Windows"',
+
+           }
