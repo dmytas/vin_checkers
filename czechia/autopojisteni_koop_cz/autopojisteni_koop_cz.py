@@ -31,15 +31,6 @@ def get_car_info(vin):
     return soup
 
 
-"""
-ADNCPUD22U0005975
-JMZKFGWMA00
-KMHHN61DP2U048197
-1C6RRFFG1KN
-W0L0XCE7594242088
-"""
-
-
 def collect_car_info(soup):
     div = soup.find('div', attrs={"class": "typeahead"})
     all_car_data = re.search('data-typeahead-url=(.+)', str(div)).group(0)
