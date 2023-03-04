@@ -31,6 +31,15 @@ def get_car_info(vin):
     return soup
 
 
+"""
+ADNCPUD22U0005975
+JMZKFGWMA00
+KMHHN61DP2U048197
+1C6RRFFG1KN
+W0L0XCE7594242088
+"""
+
+
 def collect_car_info(soup):
     div = soup.find('div', attrs={"class": "typeahead"})
     all_car_data = re.search('data-typeahead-url=(.+)', str(div)).group(0)
@@ -57,20 +66,19 @@ def collect_car_info(soup):
     first_license = re.search('(firstLicensed=)([0-9].+[0-9].+[0-9]{4})', all_car_data)
     first_license = first_license.group(2) if first_license else None
     if car_model:
-        car_info = {
+        car_info = {"main_car_info": {
             "car_vin": vin_code,
             "car_brand": car_brand,
             "car_model": car_model,
-            "fuel_type": fuel_type,
             "number_of_seats": seats_num,
             "plate": license_plate,
             "engine_volume": engine_volume,
             "engine_power": engine_power,
-            "car_weight": car_weight,
             "technical_certificate": technical_certificate,
-            "first_license": first_license
-
-        }
+            "first_license": first_license,
+            "other_car_info": {
+                "fuel_type": fuel_type,
+                "car_weight": car_weight, }}}
         return car_info
     else:
         return None
