@@ -41,22 +41,36 @@ def collect_car_info(soup, json_text):
     reg = soup.find('ul', attrs={'class': 'ico-list text-default mb-0'}).text.strip()
     reg = re.search('Datum první registrace: ([0-9]{2}\\.[0-9]{2}\\.[0-9]{4})', reg)
     reg = reg.group(1) if reg else None
+    car_info_tag = soup.find('ul', attrs={'id': 'carInformations'}).text.strip()
+    license_plate = re.search('(Číslo technického průkazu:)([0-9, A-Z]+)', car_info_tag)
+    license_plate = license_plate.group(2) if license_plate else None
+    manufacturing_date = re.search('(Měsíc a rok výroby:)( [0-9].+[0-9].+[0-9]{4})', car_info_tag)
+    manufacturing_date = manufacturing_date.group(2) if manufacturing_date else None
+    fuel_type = re.search('(Typ paliva:)([ A-Z]+)', car_info_tag)
+    fuel_type = fuel_type.group(2) if fuel_type else None
+    engine_volume = re.search('(Objem motoru:)([ 0-9]+)', car_info_tag)
+    engine_volume = engine_volume.group(2) if engine_volume else None
+    engine_power = re.search('(Výkon motoru:)([ 0-9]+)', car_info_tag)
+    engine_power = engine_power.group(2) if engine_power else None
+    car_weight = re.search('(Hmotnost:)([ 0-9, A-z]+)', car_info_tag)
+    car_weight = car_weight.group(2) if car_weight else None
+    seats_num = re.search('(Počet míst:)([ 0-9]+)', car_info_tag)
+    seats_num = seats_num.group(2) if seats_num else None
 
-    car_data = {
-        'car_model': name,
-        'vin_code': vin,
-        'date_of_first_registration': reg
-    }
-
-    # find other car info
-    car_info = {}
-    car_info.update(car_data)
-    car_info_tag = soup.find('ul', attrs={'id': 'carInformations'})
-    for tag in car_info_tag.find_all('li'):
-        tag_string = tag.text.strip()
-        key_value = re.search('(.+): (.+)', tag_string)
-        if key_value:
-            car_info[key_value.group(1)] = key_value.group(2)
+    car_info = {"main_car_info": {
+        "car_vin": vin,
+        "car_model": name,
+        "number_of_seats": seats_num,
+        "date_of_first_registration": reg,
+        "plate": license_plate,
+        "engine_power": engine_power,
+        "engine_volume": engine_volume,
+        "other_car_info": {
+            "manufacturing_date": manufacturing_date,
+            "fuel_type": fuel_type,
+            "car_weight": car_weight,
+        }
+    }}
 
     return car_info
 
