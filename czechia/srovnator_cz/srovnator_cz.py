@@ -20,21 +20,31 @@ def get_car_info(vin):
 
     response = requests.request("GET", url, headers=headers)
 
-    json_text = json.loads(response.text)
+    json_text = json.loads(response.text.strip())
 
     return json_text
+#W0L0XCE7594242088
 
 
 def collect_car_info(json_text):
     if not json_text.get('carInfo'):
         return None
-    try:
-        car_data = json_text['carInfo']['officialNote']
-    except:
-        car_data = None
+    new_json = json_text['carInfo']
     car_info = {
-        "car_info": json_text['carInfo'],
-        "car_data": car_data
+        "main_car_info": {
+            "car_vin": new_json['vin'],
+            "car_brand": new_json['manufacturer'],
+            "car_model": new_json['model2'] or new_json['model'],
+            "number_of_seats": new_json['sittingPlaces'],
+            "date_of_first_registration": new_json.get('firstTimeRegistration'),
+            "engine_power": new_json['power'],
+            "engine_volume": new_json['capacity'],
+            "fuelConsumption": new_json['fuelConsumption'],
+        },
+        "other_car_info": {"fuel_type": new_json['fuelType'],
+                           "car_weight": new_json['totalWeight'],
+                           "official_note": new_json.get('officialNote'),
+                           }
     }
 
     return car_info
