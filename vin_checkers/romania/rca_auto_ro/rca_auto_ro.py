@@ -18,14 +18,28 @@ def get_vin(path: str):
 def get_car_info(vin):
     url = f"https://www.rca-auto.ro/asigurare-rca/import-drpciv?vin={vin}"
     response = requests.request("GET", url, headers=headers)
-    x = response.text
     json_text = json.loads(response.text)
     return json_text
 
 
 def collect_car_info(json_text):
     if json_text:
-        car_info = {"car_info": json_text}
+        car_info = {"main_car_info": {
+            "car_vin": json_text.get('serie_sasiu'),
+            "car_model": json_text.get('model'),
+            "car_brand": json_text.get('marca'),
+            "year_of_manufacturing": json_text.get('an_fabricatie'),
+            "engine_power": json_text.get('cilindree'),
+            "engine_volume": json_text.get('putere'),
+            "number_of_seats": json_text.get('locuri'),
+
+
+            "other_car_info": {
+                "fuel_type": json_text.get('carburant'),
+                "car_weight": json_text.get('masa_maxima'),
+
+            }
+        }}
         return car_info
     else:
         return None
