@@ -30,7 +30,20 @@ def collect_car_info(json_text):
     elif json_text['manufacturer'] is None:
         return None
     car_info = {
-        "car_info": json_text
+        "main_car_info": {
+            "car_model": json_text.get('model'),
+            "car_brand": json_text.get('manufactured'),
+            "engine_power": json_text.get('enginePower'),
+            "engine_volume": json_text.get('engineCapacity'),
+            "plate": json_text.get('ecv'),
+            "policyholder": json_text.get('tp'),
+
+            "other_car_info": {
+                "car_weight": json_text.get('totalWeight'),
+
+            }
+
+        }
     }
 
     return car_info
