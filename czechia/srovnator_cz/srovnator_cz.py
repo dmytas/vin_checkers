@@ -39,7 +39,7 @@ def collect_car_info(json_text):
             "date_of_first_registration": new_json.get('firstTimeRegistration'),
             "engine_power": new_json['power'],
             "engine_volume": new_json['capacity'],
-            "fuelConsumption": new_json['fuelConsumption'],
+            "fuel_type": new_json['fuelConsumption'],
         },
         "other_car_info": {"fuel_type": new_json['fuelType'],
                            "car_weight": new_json['totalWeight'],

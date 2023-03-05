@@ -27,9 +27,26 @@ def get_car_info(vin):
 def collect_car_info(json_text):
     if not json_text.get('newformdata'):
         return None
+    new_json = json_text['newformdata']
     car_info = {
-        "car_info": json_text['newformdata'],
-        "car_data": json_text['data']
+        "main_car_data": {
+            "car_vin": new_json['vozidlo_vin'],
+            "car_model": new_json['vozidlo_model'],
+            "number_of_seats": new_json['vozidlo_pocet_miest_na_sedenie'],
+            "date_of_first_registration": new_json['vozidlo_datum_prvej_evidencie'],
+            "plate": new_json['vozidlo_ecv'],
+            "engine_power": new_json['vozidlo_objem_valcov'],
+            "engine_volume": new_json['vozidlo_vykon_motora'],
+            "other_car_data": {
+                "fuel_type": new_json['vozidlo_druh_paliva'],
+                "car_weight": new_json['vozidlo_celkova_hmotnost'],
+                "some_car_data": json_text['data'],
+                "gear_box_type": new_json['vozidlo_typ_prevodovky'],
+                "number_of_gears": new_json['vozidlo_typ_prevodovky'],
+
+            }
+        }
+
     }
     return car_info
 
@@ -48,7 +65,7 @@ def get_all_data(vin: str):
 
 
 if __name__ == "__main__":
-    vin_code_list = get_vin(f"{cwd_path}/vin.txt")
+    vin_code_list = get_vin(f"{cwd_path}/vin_netfinancie.txt")
 
     for vin in vin_code_list:
         get_all_data(vin)
