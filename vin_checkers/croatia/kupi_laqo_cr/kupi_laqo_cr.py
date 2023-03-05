@@ -25,7 +25,26 @@ def get_car_info(vin):
 def collect_car_info(json_text):
     if not json_text.get('type'):
         return None
-    car_info = {"car_info": json_text}
+    car_info = {"main_car_info": {
+        "car_vin": json_text.get('vin'),
+        "car_model": json_text.get('line'),
+        "car_color": json_text.get('color'),
+        "car_brand": json_text.get('manufacturer'),
+        "car_model_detail": json_text.get('model'),
+        "number_of_seats": json_text.get('seats'),
+        "year_of_manufacturing": json_text.get('year'),
+        "date_of_first_registration": json_text.get('registrationDate'),
+        "plate": json_text.get('plateNumber'),
+        "engine_power": json_text.get('cc'),
+        "engine_volume": json_text.get('kw'),
+        "engine_number": json_text.get('engineNumber'),
+        "policy_num": json_text.get('policyNumber'),
+        "policy_expiration_date": json_text.get('policyExpirationDate'),
+        "other_car_info": {
+            "fuel_type": json_text.get('fuelType'),
+            "car_weight": json_text.get('weight'),
+        }
+    }}
     return car_info
 
 
