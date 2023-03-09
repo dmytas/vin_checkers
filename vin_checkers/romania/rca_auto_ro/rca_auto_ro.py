@@ -32,8 +32,6 @@ def collect_car_info(json_text):
             "engine_power": json_text.get('cilindree'),
             "engine_volume": json_text.get('putere'),
             "number_of_seats": json_text.get('locuri'),
-
-
             "other_car_info": {
                 "fuel_type": json_text.get('carburant'),
                 "car_weight": json_text.get('masa_maxima'),

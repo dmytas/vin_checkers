@@ -27,7 +27,34 @@ def get_car_info(vin):
 def collect_car_info(json_text):
     if not json_text.get('detail'):
         return None
-    car_info = {"car_info": json_text}
+    new_json = json_text["detail"]
+    if new_json.get("gearboxType") == "2":
+        gear_box = "automatic"
+    else:
+        gear_box = "manual"
+    if new_json.get("fuelCategory") == "3":
+        fuel = "electric"
+    elif new_json.get("fuelCategory") == "2":
+        fuel = "diesel"
+    else:
+        fuel = "gasoline"
+
+    car_info = {"main_car_info": {
+        "car_brand": new_json["brandSelected"]["label"],
+        "car_model": new_json["modelSelected"]["label"],
+        "car_version": new_json["versionSelected"]["label"],
+        "number_of_seats": new_json.get("numberOfPlaceMax"),
+        "number_of_cylinder": new_json.get("numberOfCylinder"),
+        "engine_power": new_json.get("powerKW"),
+
+        "other_car_info": {
+            "car_weigh": new_json.get("emptyWeight"),
+            "fuel_type": fuel,
+            "gear_box_type": gear_box,
+            "number_of_gear": new_json.get("numberOfGear"),
+
+        }
+    }}
     return car_info
 
 

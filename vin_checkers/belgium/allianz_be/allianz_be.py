@@ -26,8 +26,37 @@ def get_car_info(vin):
 def collect_car_info(json_text):
     if not json_text.get("root"):
         return None
+    new_json = json_text["root"]["body"]
+    car_data = new_json.get("technical")
+    car_reg = new_json.get("registration")
+    car_manufactured = new_json.get("labels")
+    car_manufactured = car_manufactured if car_manufactured else {}
     car_info = {
-        "car_info": json_text["root"]["body"]
+        "main_car_info":
+            {"car_vin": car_reg.get("vin"),
+             "date_of_first_registration": car_reg.get("registrationFirst"),
+             "date_of_last_registration": car_reg.get("registrationLast"),
+             "registration_status": car_reg.get("registrationStatus"),
+             "car_brand": car_manufactured.get("manufacturer"),
+             "car_model": car_manufactured.get("model"),
+             "car_model_type": car_manufactured.get("type"),
+             "car_color": car_data.get("color"),
+             "number_of_seats": car_data.get("seats"),
+             "engine_power": car_data.get("kw"),
+             "engine_volume": car_data.get("cc"),
+             "co2": car_data.get("co2"),
+             
+
+             "other_car_info": {
+                 "car_weight": car_data.get("massInRunning"),
+                 "gear_box_type": car_data.get("transmissionType"),
+                 "number_of_gears": car_data.get("gears"),
+                 "fraud_detection": new_json.get("fraudDetection"),
+                 "damage_cost": new_json.get("damageCosts"),
+                 "car_equipment": new_json.get("safety"),
+
+             }
+             }
     }
     return car_info
 
@@ -50,4 +79,3 @@ if __name__ == "__main__":
 
     for vin in vin_code_list:
         get_all_data(vin)
-
